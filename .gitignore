@@ -18,6 +18,7 @@
 *.key
 credentials.json
 client_secret.json
+backend_config.md
 
 # Logs and Databases
 *.log
