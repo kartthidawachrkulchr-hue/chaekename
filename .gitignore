@@ -1,0 +1,27 @@
+# Git Ignore File
+# ป้องกันไม่ให้ไฟล์สำคัญหลุดไปบน GitHub หรือระบบ Control
+
+# Document Files (ไฟล์เอกสารสำคัญ)
+*.doc
+*.docx
+*.txt
+*.pdf
+*.xls
+*.xlsx
+*.csv
+
+# Google Apps Script & Secrets
+*.gs
+*.env
+*.env.*
+*.pem
+*.key
+credentials.json
+client_secret.json
+
+# Logs and Databases
+*.log
+*.sqlite
+*.db
+node_modules/
+.DS_Store

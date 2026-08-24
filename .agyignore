@@ -1,0 +1,26 @@
+# Antigravity Ignore File
+# ไฟล์นี้ใช้บอกให้ AI (Antigravity) ห้ามยุ่งเกี่ยว ห้ามอ่าน หรือห้ามแก้ไขไฟล์เหล่านี้เด็ดขาด เพื่อป้องกันความลับรั่วไหล
+
+# Document Files (ไฟล์เอกสารสำคัญ)
+*.doc
+*.docx
+*.txt
+*.pdf
+*.xls
+*.xlsx
+*.csv
+
+# Scripts & Source Code Secrets
+*.gs
+*.env
+*.env.*
+*.pem
+*.key
+credentials.json
+client_secret.json
+secrets/
+
+# Other sensitive data
+*.log
+*.sqlite
+*.db

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html class="light" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SmartCheck - แดชบอร์ด</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#1d3054",
+                        "on-tertiary-container": "#76e2ff",
+                        "on-primary": "#ffffff",
+                        "outline": "#737685",
+                        "on-background": "#051a3e",
+                        "on-secondary-container": "#616363",
+                        "primary": "#003d9b",
+                        "on-surface-variant": "#434654",
+                        "on-secondary-fixed-variant": "#454747",
+                        "surface": "#faf9ff",
+                        "primary-fixed": "#dae2ff",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#ccdaff",
+                        "surface-container-low": "#f1f3ff",
+                        "on-tertiary-fixed": "#001f27",
+                        "surface-bright": "#faf9ff",
+                        "secondary-container": "#dfe0e0",
+                        "background": "#faf9ff",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "tertiary-container": "#006477",
+                        "error": "#ba1a1a",
+                        "secondary": "#5d5f5f",
+                        "surface-variant": "#d8e2ff",
+                        "on-primary-container": "#c4d2ff",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#001848",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#b2c5ff",
+                        "outline-variant": "#c3c6d6",
+                        "primary-container": "#0052cc",
+                        "surface-container-high": "#e1e8ff",
+                        "surface-container": "#e9edff",
+                        "inverse-on-surface": "#edf0ff",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "surface-container-highest": "#d8e2ff",
+                        "on-surface": "#051a3e",
+                        "tertiary-fixed": "#afecff",
+                        "surface-tint": "#0c56d0",
+                        "secondary-fixed": "#e2e2e2",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#004b59",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#004e5d",
+                        "tertiary-fixed-dim": "#48d7f9",
+                        "on-primary-fixed-variant": "#0040a2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px",
+                        "pill": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "base": "8px",
+                        "sm": "12px",
+                        "xs": "8px",
+                        "gutter": "24px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "container-max": "1440px",
+                        "xxs": "4px",
+                        "safe": "env(safe-area-inset-bottom)"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Kanit"],
+                        "body-md": ["Kanit"],
+                        "headline-lg-mobile": ["Kanit"],
+                        "title-md": ["Kanit"],
+                        "headline-lg": ["Kanit"],
+                        "display-lg": ["Kanit"],
+                        "label-sm": ["Kanit"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "500" }],
+                        "title-md": ["16px", { "lineHeight": "24px", "letterSpacing": "0.15px", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "500" }],
+                        "display-lg": ["57px", { "lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "600" }],
+                        "label-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { 
+            font-family: 'Kanit', sans-serif; 
+            color: theme('colors.on-background'); 
+            background: linear-gradient(135deg, rgba(218, 226, 255, 0.4) 0%, rgba(241, 243, 255, 0.6) 50%, rgba(255, 255, 255, 1) 100%);
+            background-attachment: fixed;
+            min-height: max(884px, 100dvh);
+        }
+        .glass-panel { 
+            background: rgba(255, 255, 255, 0.5); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.7); 
+            box-shadow: 0 8px 32px rgba(0, 61, 155, 0.08);
+        }
+        .ai-glow { box-shadow: 0 8px 32px rgba(0, 61, 155, 0.1); transition: all 0.4s ease; }
+        .ai-glow:hover { box-shadow: 0 12px 48px rgba(0, 61, 155, 0.2); transform: translateY(-2px); }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col md:flex-row">
+<!-- NavigationDrawer (Desktop) -->
+<aside class="bg-white/60 backdrop-blur-xl text-primary hidden lg:flex flex-col gap-2 pt-6 fixed left-0 top-0 h-full w-[260px] z-40 border-r border-white/80 shadow-[4px_0_24px_rgba(0,61,155,0.03)]">
+<div class="px-gutter mb-6">
+<div class="flex items-center gap-4 mb-4">
+<img alt="หัวหน้าชั้นเรียน" class="w-12 h-12 rounded-full object-cover shadow-sm border border-white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRMI6LB5TPFNSiFYhjSoSFeRCf50Bfu-C1pv3n4pOctY_S9XsnU9PLlofZPUs-cSNwArs6Uu11MFQ7AVUcxcGLSR_T7P9VxDTf2DHEnbQ743-zX6hMtiwDPGssUp8vfkohDSx2NkmgHyi7jqiQniZ_sBMxxHVXKWtIPSB0MHejc6t_VA84BQev1gdNW5SmMF09vy4tmyuqiJpDyG0tWkjip_AEhwJaOh5HEakhoiNh2ZW6Tm_sJZbSyoFw1_WKICYswF2hXYZUc4k"/>
+<div>
+<h2 class="font-title-md text-title-md text-on-surface font-semibold">ดร. สมศักดิ์</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant font-medium">ครูประจำชั้น ม.4/1</p>
+</div>
+</div>
+<div class="font-display-lg text-primary text-2xl font-bold tracking-tight">SmartCheck Pro</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 bg-primary-container text-on-primary-container font-bold rounded-3xl mx-3 px-4 py-3 cursor-pointer shadow-sm transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                แดชบอร์ด
+            </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-white/80 mx-3 px-4 py-3 rounded-3xl transition-all cursor-pointer duration-200 font-medium" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+                การเช็คชื่อ
+            </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-white/80 mx-3 px-4 py-3 rounded-3xl transition-all cursor-pointer duration-200 font-medium" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+                รายงานการวิเคราะห์
+            </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-white/80 mx-3 px-4 py-3 rounded-3xl transition-all cursor-pointer duration-200 font-medium" href="#">
+<span class="material-symbols-outlined">settings</span>
+                การตั้งค่าระบบ
+            </a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-[260px] pb-24 md:pb-0">
+<!-- TopAppBar (Mobile) -->
+<header class="md:hidden bg-white/70 backdrop-blur-xl text-primary font-headline-lg-mobile text-headline-lg-mobile docked full-width top-0 sticky z-50 border-b border-white/60 shadow-[0_4px_24px_rgba(0,61,155,0.04)] flex items-center justify-between px-gutter w-full h-16">
+<button class="text-on-surface-variant hover:bg-white/80 transition-colors active:scale-95 duration-150 p-2 rounded-full">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary tracking-tight">SmartCheck</h1>
+<button class="text-on-surface-variant hover:bg-white/80 transition-colors active:scale-95 duration-150 p-2 rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<main class="flex-1 p-md md:p-gutter max-w-container-max mx-auto w-full">
+<div class="mb-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">ภาพรวมห้อง ม.4/1</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 font-medium">วันนี้, 24 ต.ค. 2566</p>
+</div>
+<!-- Quick Actions -->
+<div class="flex flex-wrap gap-sm w-full md:w-auto">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-primary text-on-primary font-title-md text-title-md px-6 py-3 rounded-3xl hover:bg-primary/90 transition-all shadow-[0_4px_16px_rgba(0,61,155,0.2)] hover:shadow-[0_8px_24px_rgba(0,61,155,0.3)] active:scale-95 font-medium">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">qr_code_scanner</span>
+                        เริ่มเช็คชื่อ
+                    </button>
+<button class="flex items-center justify-center gap-2 bg-white/60 backdrop-blur-md text-on-surface font-title-md text-title-md px-4 py-3 rounded-3xl hover:bg-white/80 transition-all shadow-sm border border-white/80 active:scale-95 font-medium">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                        CSV
+                    </button>
+<button class="flex items-center justify-center gap-2 bg-[#00B900]/10 text-[#00B900] font-title-md text-title-md px-4 py-3 rounded-3xl hover:bg-[#00B900]/20 transition-all shadow-sm border border-[#00B900]/30 active:scale-95 font-medium">
+<span class="material-symbols-outlined text-[20px]">send</span>
+                        แจ้งเตือน
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md md:gap-lg">
+<!-- Main Progress Card -->
+<div class="md:col-span-5 lg:col-span-4 glass-panel rounded-3xl p-lg flex flex-col items-center justify-center relative overflow-hidden ai-glow">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-tertiary-container"></div>
+<h3 class="font-title-md text-title-md text-on-surface w-full text-left mb-6 font-semibold">การเข้าเรียนรวม</h3>
+<!-- Circular Progress -->
+<div class="relative w-48 h-48 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<defs>
+<lineargradient id="progressGradient" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#003d9b"></stop>
+<stop offset="100%" stop-color="#48d7f9"></stop>
+</lineargradient>
+<filter height="140%" id="glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="4"></fegaussianblur>
+<fecomposite in="SourceGraphic" in2="blur" operator="over"></fecomposite>
+</filter>
+</defs>
+<!-- Background circle -->
+<circle class="text-surface-variant/60" cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-width="8"></circle>
+<!-- Progress circle -->
+<circle cx="50" cy="50" fill="none" filter="url(#glow)" r="45" stroke="url(#progressGradient)" stroke-dasharray="283" stroke-dashoffset="34" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="font-display-lg text-display-lg text-primary leading-none font-bold tracking-tight">88%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1 text-center font-medium">35/40 มาเรียน</span>
+</div>
+</div>
+<div class="mt-6 flex gap-4 w-full justify-center">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary shadow-[0_0_8px_rgba(0,61,155,0.4)]"></div>
+<span class="font-body-md text-body-md text-on-surface-variant font-medium">มาเรียน</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-surface-variant/80 border border-outline-variant/30"></div>
+<span class="font-body-md text-body-md text-on-surface-variant font-medium">ขาด/สาย</span>
+</div>
+</div>
+</div>
+<!-- KPI Cards Grid -->
+<div class="md:col-span-7 lg:col-span-8 grid grid-cols-2 gap-md">
+<!-- Total Students -->
+<div class="bg-white/60 backdrop-blur-md rounded-3xl p-lg border border-white/80 shadow-[0_4px_24px_rgba(0,61,155,0.04)] hover:shadow-[0_8px_32px_rgba(0,61,155,0.08)] transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-surface-container-high/80 rounded-2xl text-primary shadow-sm border border-white/50">
+<span class="material-symbols-outlined">groups</span>
+</div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider font-semibold">นักเรียนทั้งหมด</p>
+<p class="font-headline-lg text-headline-lg text-on-surface font-bold">40</p>
+</div>
+</div>
+<!-- Present -->
+<div class="bg-white/60 backdrop-blur-md rounded-3xl p-lg border border-white/80 shadow-[0_4px_24px_rgba(0,61,155,0.04)] hover:shadow-[0_8px_32px_rgba(0,61,155,0.08)] transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-primary-container/30 rounded-2xl text-primary shadow-sm border border-white/50">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary-container bg-tertiary-container/10 px-2 py-1 rounded-xl font-medium border border-tertiary-container/20">+2 จากเมื่อวาน</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider font-semibold">มาเรียน</p>
+<p class="font-headline-lg text-headline-lg text-on-surface font-bold">35</p>
+</div>
+</div>
+<!-- Late -->
+<div class="bg-white/60 backdrop-blur-md rounded-3xl p-lg border border-white/80 shadow-[0_4px_24px_rgba(0,61,155,0.04)] hover:shadow-[0_8px_32px_rgba(0,61,155,0.08)] transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-[#FFC107]/15 rounded-2xl text-[#FF9800] shadow-sm border border-white/50">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider font-semibold">สาย</p>
+<p class="font-headline-lg text-headline-lg text-on-surface font-bold">2</p>
+</div>
+</div>
+<!-- Absent -->
+<div class="bg-white/60 backdrop-blur-md rounded-3xl p-lg border border-white/80 shadow-[0_4px_24px_rgba(0,61,155,0.04)] hover:shadow-[0_8px_32px_rgba(0,61,155,0.08)] transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-error-container/60 rounded-2xl text-error shadow-sm border border-white/50">
+<span class="material-symbols-outlined">cancel</span>
+</div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider font-semibold">ขาด</p>
+<p class="font-headline-lg text-headline-lg text-on-surface font-bold">3</p>
+</div>
+</div>
+</div>
+<!-- Recent Activity / Roster List -->
+<div class="col-span-1 md:col-span-12 glass-panel rounded-3xl border border-white/70 overflow-hidden mt-md shadow-[0_8px_32px_rgba(0,61,155,0.06)]">
+<div class="p-lg border-b border-white/40 bg-white/30 flex justify-between items-center">
+<h3 class="font-title-md text-title-md text-on-surface font-semibold">รายการเช็คชื่อล่าสุด</h3>
+<button class="font-label-sm text-label-sm text-primary font-medium hover:underline">ดูรายชื่อทั้งหมด</button>
+</div>
+<div class="p-2 flex flex-col gap-1">
+<!-- Student Item -->
+<div class="p-4 flex items-center justify-between hover:bg-white/70 hover:shadow-[0_2px_12px_rgba(0,61,155,0.05)] active:scale-[0.98] transition-all duration-300 rounded-2xl cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-11 h-11 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-title-md font-bold shadow-sm">
+                                    ณ
+                                </div>
+<div>
+<p class="font-title-md text-title-md text-on-surface font-medium">ณเดชน์ คูกิมิยะ</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant font-medium">ID: 10452 • สแกน QR</p>
+</div>
+</div>
+<div class="flex items-center gap-2 text-primary font-body-md text-body-md font-medium bg-primary/5 px-3 py-1.5 rounded-xl">
+<span class="material-symbols-outlined text-[18px]">done</span>
+                                08:15 น.
+                            </div>
+</div>
+<!-- Student Item -->
+<div class="p-4 flex items-center justify-between hover:bg-white/70 hover:shadow-[0_2px_12px_rgba(0,61,155,0.05)] active:scale-[0.98] transition-all duration-300 rounded-2xl cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-11 h-11 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-title-md font-bold shadow-sm border border-white/50">
+                                    ญ
+                                </div>
+<div>
+<p class="font-title-md text-title-md text-on-surface font-medium">ญาญ่า อุรัสยา</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant font-medium">ID: 10453 • บันทึกเอง</p>
+</div>
+</div>
+<div class="flex items-center gap-2 text-[#FF9800] font-body-md text-body-md font-medium bg-[#FF9800]/5 px-3 py-1.5 rounded-xl">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+                                08:42 น.
+                            </div>
+</div>
+<!-- Student Item -->
+<div class="p-4 flex items-center justify-between hover:bg-white/70 hover:shadow-[0_2px_12px_rgba(0,61,155,0.05)] active:scale-[0.98] transition-all duration-300 rounded-2xl cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-11 h-11 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-title-md font-bold shadow-sm">
+                                    ม
+                                </div>
+<div>
+<p class="font-title-md text-title-md text-on-surface font-medium">มาริโอ้ เมาเร่อ</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant font-medium">ID: 10454 • สแกน RFID</p>
+</div>
+</div>
+<div class="flex items-center gap-2 text-primary font-body-md text-body-md font-medium bg-primary/5 px-3 py-1.5 rounded-xl">
+<span class="material-symbols-outlined text-[18px]">done</span>
+                                08:12 น.
+                            </div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden bg-white/90 backdrop-blur-xl text-primary font-label-sm text-label-sm fixed bottom-0 w-full z-50 rounded-t-3xl shadow-[0_-8px_24px_rgba(0,61,155,0.06)] border-t border-white/60 h-20 flex justify-around items-center px-4 pb-safe">
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-3xl px-5 py-1.5 hover:bg-surface-container-high active:scale-95 transition-transform cursor-pointer shadow-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="mt-1 font-semibold">หน้าแรก</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-high/50 rounded-3xl active:scale-95 transition-all cursor-pointer font-medium" href="#">
+<span class="material-symbols-outlined">how_to_reg</span>
+<span class="mt-1">เช็คชื่อ</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-high/50 rounded-3xl active:scale-95 transition-all cursor-pointer font-medium" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="mt-1">รายงาน</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 hover:bg-surface-container-high/50 rounded-3xl active:scale-95 transition-all cursor-pointer font-medium" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="mt-1">ตั้งค่า</span>
+</a>
+</nav>
+</body></html>
